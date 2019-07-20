@@ -1,0 +1,1 @@
+﻿public class GroundTilePool : Core.Patterns.ObjectPool<AGroundTilePresenter> { }
