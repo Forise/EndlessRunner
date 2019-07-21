@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using Core.EventSystem;
 using Core;
 
-public class UISettings : UIWindow
+public class SettingsWindow : UIWindow
 {
     #region Fields
     public MyButton backButton;

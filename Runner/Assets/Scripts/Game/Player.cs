@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     {
         rb = rb ?? GetComponent<Rigidbody2D>();
         movement = movement ?? GetComponent<Movement2D_Runner>();
+        movement.Speed = UserDataControl.Instance.UserData.LastSpeed;
         coll = coll ?? GetComponent<Collider2D>();
     }
 
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         if (!GameplayControl.Instance.IsPaused)
         {
             movement.Move();
+            UserDataControl.Instance.UserData.LastSpeed = movement.Speed;
             (movement as Movement2D_Runner).ResumeAnimation();
         }
         else
@@ -46,9 +48,10 @@ public class Player : MonoBehaviour
             switch(pickable.ItemType)
             {
                 case PickableItemType.Cherry:
+                    EventManager.Notify(this, new GameEventArgs(Events.PlayerEvents.PLAYER_CHERRY_PICKED_UP));
                     break;
                 case PickableItemType.Gem:
-                    EventManager.Notify(this, new GameEventArgs(Events.PlayerEvents.PLAYER_CHERRY_PICKED_UP));
+                    EventManager.Notify(this, new GameEventArgs(Events.PlayerEvents.PLAYER_GEM_PICKED_UP));
                     movement.Speed -= slowFactorByGem;
                     if (movement.Speed < 1f)
                         movement.Speed = 1f;

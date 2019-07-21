@@ -66,6 +66,9 @@
     <Compile Include="Assets\Scripts\Core\Audio\AudioDispatcher.cs" />
     <Compile Include="Assets\Scripts\Core\Audio\AudioEvent.cs" />
     <Compile Include="Assets\Scripts\Core\Audio\TimedNumber.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\AUserDataController.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\AUserDataModel.cs" />
+    <Compile Include="Assets\Scripts\Core\Data\AUserDataPresenter.cs" />
     <Compile Include="Assets\Scripts\Core\Data\Settings.cs" />
     <Compile Include="Assets\Scripts\Core\MVP\Models\GameObjectModel.cs" />
     <Compile Include="Assets\Scripts\Core\MVP\Models\GeneratorModel.cs" />
@@ -86,6 +89,7 @@
     <Compile Include="Assets\Scripts\Core\Patterns\StateMachine\StateMachine.cs" />
     <Compile Include="Assets\Scripts\Core\SettingsControl.cs" />
     <Compile Include="Assets\Scripts\Core\UI\MyButton.cs" />
+    <Compile Include="Assets\Scripts\Core\UI\OpenWindowButton.cs" />
     <Compile Include="Assets\Scripts\Core\UI\PopUps\UIDialoguePopUp.cs" />
     <Compile Include="Assets\Scripts\Core\UI\PopUps\UIImageInfoPopUp.cs" />
     <Compile Include="Assets\Scripts\Core\UI\PopUps\UIInfoPopUp.cs" />
@@ -102,6 +106,9 @@
     <Compile Include="Assets\Scripts\Core\Utilities\SerializableDictionary.cs" />
     <Compile Include="Assets\Scripts\Core\Utilities\Utilities.cs" />
     <Compile Include="Assets\Scripts\Core\Utilities\WeightedRandomCollection.cs" />
+    <Compile Include="Assets\Scripts\Game\Data\UserDataControl.cs" />
+    <Compile Include="Assets\Scripts\Game\Data\UserDataModel.cs" />
+    <Compile Include="Assets\Scripts\Game\Data\UserDataPresenter.cs" />
     <Compile Include="Assets\Scripts\Game\Game.cs" />
     <Compile Include="Assets\Scripts\Game\GameplayControl.cs" />
     <Compile Include="Assets\Scripts\Game\Generators\BackgroundGenerator.cs" />
