@@ -22,8 +22,7 @@ namespace Core.Audio
             soundsSources = new List<AudioSource>(transform.Find("Sounds").GetComponents<AudioSource>());
             SetVolumes();
             EventManager.Subscribe(Events.ApplicationEvents.SETTINGS_CHANGED, SettingsChanged_Handler);
-            if (playMusicOnStart)
-                EventManager.Notify(this, new GameEventArgs(Events.AudioEvents.PLAY_MUSIC));
+            StartCoroutine(LateStart());
         }
 
         protected override void OnDestroy()
@@ -168,6 +167,13 @@ namespace Core.Audio
         public void Unmute()
         {
             SetVolumes();
+        }
+
+        private IEnumerator LateStart()
+        {
+            yield return new WaitForEndOfFrame();
+            if (playMusicOnStart)
+                EventManager.Notify(this, new GameEventArgs(Events.AudioEvents.PLAY_MUSIC, true));
         }
         #endregion
 
