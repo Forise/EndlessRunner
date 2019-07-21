@@ -11,11 +11,14 @@ public class UserDataPresenter : AUserDataPresenter
     public uint HighScore { get => (Model as UserDataModel).HighScore; set => (Model as UserDataModel).HighScore = value; }
     public uint LastScore { get => (Model as UserDataModel).LastScore; set => (Model as UserDataModel).LastScore = value; }
     public float LastSpeed { get => (Model as UserDataModel).LastSpeed; set => (Model as UserDataModel).LastSpeed = value; }
+    public DummyLeaderboardData LeaderboardData { get => (Model as UserDataModel).LeaderboardData; set => (Model as UserDataModel).LeaderboardData = value; }
     #endregion Properties
 
     public UserDataPresenter ()
     {
         Model = new UserDataModel();
+        LeaderboardData = LeaderboardController.Instance.dataObject.leaderboardData;
+        Name = "Pavel";
         HighScore = 0;
         LastScore = 0;
         LastSpeed = 1f;

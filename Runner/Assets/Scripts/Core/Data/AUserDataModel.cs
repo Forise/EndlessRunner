@@ -1,10 +1,10 @@
-﻿//Developed by Pavel Kravtsov.
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Core
 {
     public abstract class AUserDataModel : Model
     {
+        //This time stamp is used for data validation
         [SerializeField]
         private string stringDateTime;
 

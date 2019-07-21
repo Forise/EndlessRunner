@@ -3239,6 +3239,7 @@ GameObject:
   - component: {fileID: 1664061808}
   - component: {fileID: 1664061810}
   - component: {fileID: 1664061809}
+  - component: {fileID: 1664061811}
   m_Layer: 0
   m_Name: Dont Destroy
   m_TagString: Untagged
@@ -3341,8 +3342,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323669fbe2b943645ade80069b1dd9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userData: {fileID: 1664061809}
   isSaving: 0
+  userData: {fileID: 1664061809}
+--- !u!114 &1664061811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664061803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d22cd08fe0f0db44e8a917a6b22c51c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dataObject: {fileID: 11400000, guid: 569746ac201764947a231494785e3cd4, type: 2}
+  useDummy: 1
 --- !u!1 &1670520190
 GameObject:
   m_ObjectHideFlags: 0

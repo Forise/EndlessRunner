@@ -16,7 +16,7 @@ namespace Core
 
                 if (instance == null)
                 {
-                    instance = GameObject.FindObjectOfType(typeof(T)) as T;
+                    instance = FindObjectOfType(typeof(T)) as T;
 
                     if (instance == null)
                     {

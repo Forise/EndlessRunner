@@ -11,7 +11,9 @@ public class UserDataModel : AUserDataModel
     private uint lastScore;
     [SerializeField]
     private float lastSpeed;
-
+    [SerializeField]
+    private DummyLeaderboardData leaderboardData;
+    
     public string Name
     {
         get => name;
@@ -48,6 +50,16 @@ public class UserDataModel : AUserDataModel
         set
         {
             lastSpeed = value;
+            NotifyUserDataChanged();
+        }
+    }
+
+    public DummyLeaderboardData LeaderboardData
+    {
+        get => leaderboardData;
+        set
+        {
+            leaderboardData = value;
             NotifyUserDataChanged();
         }
     }
