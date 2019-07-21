@@ -3,6 +3,7 @@ using UnityEngine;
 using Core;
 using Core.EventSystem;
 using UnityEngine.Networking;
+using System.Linq;
 
 public class LeaderboardController : MonoSingleton<LeaderboardController>
 {
@@ -11,24 +12,42 @@ public class LeaderboardController : MonoSingleton<LeaderboardController>
     public event System.Action DataUploaded = delegate { };
     public event System.Action DataDownloaded = delegate { };
 
+    protected string path;
+    public const string fileName = "Leaderboard.json";
+
     private void Awake()
     {
-        EventManager.Subscribe(Events.PlayerEvents.PLAYER_DIED, OnPlayerDied_Handler);
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
+        path = Application.persistentDataPath + "/" + fileName;
+#elif UNITY_EDITOR
+        path = Application.dataPath + "/" + fileName;
+#endif
     }
 
     private void Start()
     {
+        EventManager.Subscribe(Events.PlayerEvents.PLAYER_DIED, OnPlayerDied_Handler);
         GetLeaderboardDataFromServer();
     }
 
-    public IEnumerator SaveLeaderboardToServer(System.Action actionOnUpload = null)
+    public void SaveLeaderboardToServer(System.Action actionOnUpload = null)
+    {
+        StartCoroutine(SaveLeaderboardToServerCoroutine(actionOnUpload));
+    }
+
+    public void GetLeaderboardDataFromServer(System.Action actionOnDownload = null)
+    {
+        StartCoroutine(GetLeaderboardDataFromServerCoroutine(actionOnDownload));
+    }
+
+    private IEnumerator SaveLeaderboardToServerCoroutine(System.Action actionOnUpload = null)
     {
         if (!useDummy)
         {
             WWWForm form = new WWWForm();
             try
             {
-                form.AddField("myHighScore", JsonUtility.ToJson(UserDataControl.Instance.UserData.LeaderboardData.items.Find(x => x.name == UserDataControl.Instance.UserData.Name)));
+                form.AddField("myHighScore", JsonUtility.ToJson(UserDataControl.Instance.UserData.LeaderboardData.items.ToList().Find(x => x.name == UserDataControl.Instance.UserData.Name)));
             }
             catch (System.Exception ex)
             {
@@ -52,15 +71,31 @@ public class LeaderboardController : MonoSingleton<LeaderboardController>
         }
         else
         {
-            dataObject.leaderboardData = UserDataControl.Instance.UserData.LeaderboardData;
-            dataObject.SetDirty();
+            SaveLocal();
             DataUploaded += actionOnUpload;
             DataUploaded?.Invoke();
             DataUploaded = delegate { };
         }
     }
 
-    public IEnumerator GetLeaderboardDataFromServer(System.Action actionOnDownload = null)
+    private void SaveLocal()
+    {
+        var json = JsonUtility.ToJson(UserDataControl.Instance.UserData.LeaderboardData);
+        System.IO.File.WriteAllText(path, json);
+    }
+
+    private string LoadJson()
+    {
+        if (!System.IO.File.Exists(path))
+        {
+            SaveLocal();
+            return System.IO.File.ReadAllText(path);
+        }
+        else
+            return System.IO.File.ReadAllText(path);
+    }
+
+    private IEnumerator GetLeaderboardDataFromServerCoroutine(System.Action actionOnDownload = null)
     {
         if (!useDummy)
         {
@@ -84,7 +119,7 @@ public class LeaderboardController : MonoSingleton<LeaderboardController>
         }
         else
         {
-            UserDataControl.Instance.UserData.LeaderboardData = dataObject.leaderboardData;
+            UserDataControl.Instance.UserData.LeaderboardData = JsonUtility.FromJson<DummyLeaderboardData>(LoadJson());
             DataDownloaded += actionOnDownload;
             DataDownloaded?.Invoke();
             DataDownloaded = delegate { };
@@ -94,6 +129,15 @@ public class LeaderboardController : MonoSingleton<LeaderboardController>
     #region Handlers
     private void OnPlayerDied_Handler(object sender, GameEventArgs e)
     {
+        var userData = UserDataControl.Instance.UserData;
+        for (int i = 0; i < userData.LeaderboardData.items.Length; i++)
+        {
+            if (userData.LeaderboardData.items[i].name == userData.Name)
+            {
+                userData.LeaderboardData.items[i].score = userData.HighScore;
+                break;
+            }
+        }
         SaveLeaderboardToServer();
     }
     #endregion Handlers

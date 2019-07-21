@@ -126,6 +126,9 @@
     <Compile Include="Assets\Scripts\Game\Presenters\Movement2D_Runner.cs" />
     <Compile Include="Assets\Scripts\Game\Presenters\PickableItemPresenter2D.cs" />
     <Compile Include="Assets\Scripts\Game\UI\HUD.cs" />
+    <Compile Include="Assets\Scripts\Game\UI\LeaderboardUIItem.cs" />
+    <Compile Include="Assets\Scripts\Game\UI\LeaderboardWindow.cs" />
+    <Compile Include="Assets\Scripts\Game\UI\LoadingWindow.cs" />
     <Compile Include="Assets\Scripts\Game\UI\MainMenuWindow.cs" />
     <Compile Include="Assets\Scripts\Game\UI\SettingsWindow.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

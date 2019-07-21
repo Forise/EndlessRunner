@@ -12,7 +12,20 @@ public class MainMenuWindow : UIWindow
 
     private void Awake()
     {
-        startButton.onClick.AddListener(() => { GameplayControl.Instance.StartGame(); CloseThisWindow(); });
+        startButton.onClick.AddListener(() => 
+        {
+            StartCoroutine(StartButtonCorotine());
+        }
+        );
         exitButton.onClick.AddListener(() => { Application.Quit(); });
+    }
+
+    private IEnumerator StartButtonCorotine()
+    {
+        UIControl.Instance.OpenWindow("LoadingWindow");
+        yield return new WaitForSeconds(2);
+        GameplayControl.Instance.StartGame();
+        UIControl.Instance.CloseWindow("LoadingWindow");
+        CloseThisWindow();
     }
 }

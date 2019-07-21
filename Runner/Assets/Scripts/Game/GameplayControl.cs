@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using Core;
 using Core.EventSystem;
 using UnityEngine;
@@ -43,11 +43,18 @@ public class GameplayControl : MonoSingleton<GameplayControl>
 
     public void EndGame()
     {
-        
+        StartCoroutine(EndGameCoroutine());
+    }
+
+    private IEnumerator EndGameCoroutine()
+    {
+        UIControl.Instance.OpenWindow("LoadingWindow");
         EventManager.Notify(this, new GameEventArgs(Events.InputEvents.BLOCK_HUD));
         EventManager.Notify(this, new GameEventArgs(Events.GameEvents.GAME_ENDED));
-        UIControl.Instance.OpenWindow("MainMenuWindow");
         Destroy(game.gameObject);
+        yield return new WaitForSeconds(2);
+        UIControl.Instance.CloseWindow("LoadingWindow");
+        UIControl.Instance.OpenWindow("MainMenuWindow");
     }
 
     public void PauseGame()

@@ -17,7 +17,7 @@ public class UserDataPresenter : AUserDataPresenter
     public UserDataPresenter ()
     {
         Model = new UserDataModel();
-        LeaderboardData = LeaderboardController.Instance.dataObject.leaderboardData;
+        LeaderboardData = new DummyLeaderboardData();
         Name = "Pavel";
         HighScore = 0;
         LastScore = 0;
@@ -45,7 +45,10 @@ public class UserDataPresenter : AUserDataPresenter
 
     private void OnPlayerDied_Handler(object sender, GameEventArgs e)
     {
-        HighScore = HighScore < LastScore ? LastScore : HighScore;
+        if (HighScore < LastScore)
+        {
+            HighScore = LastScore;
+        }
         LastScore = 0;
         LastSpeed = 1;
     }
