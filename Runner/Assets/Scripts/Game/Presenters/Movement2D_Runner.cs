@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Core;
+using Core.EventSystem;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Movement2D_Runner : AMovementPresenter
@@ -23,11 +24,6 @@ public class Movement2D_Runner : AMovementPresenter
     {
         rb.velocity = Vector3.right * movementModel.Speed;
     }
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-        Move();
-    }
     #endregion Unity Methods
 
     #region Methods
@@ -46,6 +42,7 @@ public class Movement2D_Runner : AMovementPresenter
             rb.velocity = new Vector2(movementModel.Speed, Vector2.up.y * jumpForce);
             isJumping = true;
             jumpTimer = jumpTime;
+            EventManager.Notify(this, new GameEventArgs(Events.PlayerEvents.PLAYER_JUMPED));
         }
         if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)) && isJumping)
         {
@@ -69,6 +66,15 @@ public class Movement2D_Runner : AMovementPresenter
         Jump();
         movementModel.Speed += Time.deltaTime * .1f;
         animator.SetBool("IsGrounded", IsGrounded);
+        animator.SetFloat("Speed", movementModel.Speed * animationSpeedMultiplyer);
+    }
+
+    public void StopAnimation()
+    {
+        animator.SetFloat("Speed", 0);
+    }
+    public void ResumeAnimation()
+    {
         animator.SetFloat("Speed", movementModel.Speed * animationSpeedMultiplyer);
     }
     #endregion Methods

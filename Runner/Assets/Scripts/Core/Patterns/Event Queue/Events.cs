@@ -6,16 +6,13 @@
         {
             public const string NEW_DATA_APPLIED = "NewDataApplied";
         }
-        public class DateTime
-        {
-            public const string NIST_DATE_GOTTEN = "NistDateGotten";
-            public const string URMOBI_DATE_GOTTEN = "UrmobiDateGotten";
-        }
 
         public class PlayerEvents
         {
-            public const string PLAYER_JUMP = "PlayerJump";
             public const string PLAYER_JUMPED = "PlayerJumped";
+            public const string PLAYER_GEM_PICKED_UP = "PlayerGemPickedUp";
+            public const string PLAYER_CHERRY_PICKED_UP = "PlayerCherryPickedUp";
+            public const string PLAYER_DIED = "PlayerDied";
         }
 
         public class InputEvents
@@ -25,6 +22,7 @@
             public const string BLOCK_INPUT = "BlockInput";
             public const string UNBLOCK_INPUT = "UnblockInput";
             public const string UI_TAPPED = "UITapped";
+            public const string BACK_BUTTON_PRESSED = "BackButtonPressed";
         }
 
         public class ApplicationEvents
@@ -39,6 +37,13 @@
         {
             public const string GAME_STARTED = "GameStarted";
             public const string GAME_ENDED = "GameEnded";
+            public const string PAUSE_GAME = "PauseGame";
+            public const string UNPAUSE_GAME = "UnpauseGame";
+        }
+
+        public class AudioEvents
+        {
+            public const string PLAY_MUSIC = "PlayMusic";
         }
     }
 }

@@ -24,6 +24,9 @@ namespace Core
 
         public bool IsAbleToMove { get => movementModel.IsAbleToMove; }
 
+        public float Speed { get => movementModel.Speed; set => movementModel.Speed = value; }
+        public Vector3 Position { get => movementModel.Position; set => movementModel.Position = value; }
+
         public bool IsGrounded
         {
             get => isGrounded;

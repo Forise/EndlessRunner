@@ -7,7 +7,7 @@ public class GroundGeneratorPresenter : AGeneratorPresenter<AGroundTilePresenter
 {
     #region Fields
     [SerializeField]
-    private Camera cam;
+    public Camera cam;
     [SerializeField]
     private float camStep;
 
@@ -26,10 +26,6 @@ public class GroundGeneratorPresenter : AGeneratorPresenter<AGroundTilePresenter
         StartCoroutine(GenerationCoroutine());
     }
 
-    private void OnDestroy()
-    {
-    }
-
     #region Methods
     protected override void Init()
     {
@@ -40,7 +36,7 @@ public class GroundGeneratorPresenter : AGeneratorPresenter<AGroundTilePresenter
         }
 
         generatorModel = generatorModel ?? new GeneratorModel<AGroundTilePresenter>();
-        cam = cam ?? FindObjectOfType<Camera>();
+        cam = FindObjectOfType<Camera>();
         base.Init();
     }
 
@@ -73,7 +69,7 @@ public class GroundGeneratorPresenter : AGeneratorPresenter<AGroundTilePresenter
         {
             generatorModel.GeneratedObjects.Add(newPlatform.GetComponent<AGroundTilePresenter>());
             SetNewGroundTilePos(newPlatform);
-            newPlatform.transform.rotation = Quaternion.identity;
+            newPlatform.SetRotation(Quaternion.identity);
             newPlatform.transform.SetAsLastSibling();
             newPlatform.gameObject.SetActive(true);
         }

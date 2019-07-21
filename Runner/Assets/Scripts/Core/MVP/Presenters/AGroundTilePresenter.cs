@@ -6,7 +6,7 @@ public abstract class AGroundTilePresenter : MonoBehaviour
 {
     #region Model
     [SerializeField]
-    protected GameObjectModel groundModel;
+    protected GameObjectModel groundModel = new GameObjectModel();
     #endregion
 
 

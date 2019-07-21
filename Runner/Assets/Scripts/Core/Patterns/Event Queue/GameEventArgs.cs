@@ -1,5 +1,4 @@
-﻿//Developed by Pavel Kravtsov.
-namespace Core.EventSystem
+﻿namespace Core.EventSystem
 {
     [System.Serializable]
     public class GameEventArgs : System.EventArgs

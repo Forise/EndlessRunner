@@ -6,6 +6,7 @@ namespace Core
     {
         #region Fields
         public GameObject objectToFollow;
+        public bool findCameraOnStart;
         public bool relative;
         public bool XAxis;
         public bool YAxis;
@@ -40,7 +41,7 @@ namespace Core
         {
             if(!objectToFollow)
             {
-                Debug.LogError("Object to follow is Null!", this);
+                //Debug.LogError("Object to follow is Null!", this);
                 return;
             }
             else if (isFollowing)
@@ -134,6 +135,10 @@ namespace Core
 
         private void Init()
         {
+            if(findCameraOnStart)
+            {
+                objectToFollow = Camera.main.gameObject;
+            }
             if (objectToFollow)
             {
                 Xoffset = transform.position.x - objectToFollow.transform.position.x;
