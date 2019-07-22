@@ -37,14 +37,14 @@ public class Movement2D_Runner : AMovementPresenter
 
     private void Jump()
     {
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)) && IsGrounded)
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && IsGrounded)
         {
             rb.velocity = new Vector2(movementModel.Speed, Vector2.up.y * jumpForce);
             isJumping = true;
             jumpTimer = jumpTime;
             EventManager.Notify(this, new GameEventArgs(Events.PlayerEvents.PLAYER_JUMPED));
         }
-        if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)) && isJumping)
+        if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space) || Input.GetMouseButton(0)) && isJumping)
         {
             if (jumpTimer > 0)
             {
@@ -54,7 +54,7 @@ public class Movement2D_Runner : AMovementPresenter
             else
                 isJumping = false;
         }
-        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.Space) || Input.GetMouseButtonUp(0))
         {
             isJumping = false;
         }
